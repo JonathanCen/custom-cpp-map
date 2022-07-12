@@ -28,7 +28,7 @@ int main() {
     // Testing basic construction
     printf("----------------------------\n");
     printf("Testing basic construction\n");
-    cs540::Map<int, int> m;
+    myMap::Map<int, int> m;
     printf("Size of m: %lu\n", m.size());
     assert(m.size() == 0);
     printf("Is m empty: %d\n", m.empty());
@@ -39,11 +39,11 @@ int main() {
     printf("----------------------------\n");
     printf("Basic Insertion\n");
     printf("Inserting {32, 123213}\n");
-    std::pair<cs540::Map<int, int>::Iterator, bool> foo_insert_2 = m.insert(std::make_pair(32, 123213));
+    std::pair<myMap::Map<int, int>::Iterator, bool> foo_insert_2 = m.insert(std::make_pair(32, 123213));
     printf("key: %d value: %d, and bool: %d \n", foo_insert_2.first->first, foo_insert_2.first->second, foo_insert_2.second);
     assert(foo_insert_2.second);
     assert(foo_insert_2.first->first == 32 && foo_insert_2.first->second == 123213);
-    std::pair<cs540::Map<int, int>::Iterator, bool> foo_insert_3 = m.insert(std::make_pair(43, 143));
+    std::pair<myMap::Map<int, int>::Iterator, bool> foo_insert_3 = m.insert(std::make_pair(43, 143));
     printf("Inserting {43, 143}\n");
     printf("key: %d value: %d, and bool: %d \n", foo_insert_3.first->first, foo_insert_3.first->second, foo_insert_3.second);
     assert(foo_insert_3.second);
@@ -57,14 +57,14 @@ int main() {
     printf("----------------------------\n");
     printf("Testing Large Insertion and Find (Iterator)\n");
     printf("Inserting 100000 elements and asserting the key and values\n");
-    cs540::Map<int, int> large_m;
-    const cs540::Map<int, int> c_large_m;
+    myMap::Map<int, int> large_m;
+    const myMap::Map<int, int> c_large_m;
     for (int i = 0; i < 200000; i+=2) {
         large_m.insert(std::make_pair(i, i+1));
 
     }
     for (int i = 0; i < 200000; i+=2) {
-        cs540::Map<int, int>::Iterator find_foo = large_m.find(i);
+        myMap::Map<int, int>::Iterator find_foo = large_m.find(i);
         assert(find_foo->first == i);
         assert(find_foo->second == i+1);
     }
@@ -112,7 +112,7 @@ int main() {
     large_m.erase(-1);
     assert(old_size != large_m.size());
     old_size = large_m.size();
-    cs540::Map<int, int>::Iterator foo_iter = large_m.find(200001);
+    myMap::Map<int, int>::Iterator foo_iter = large_m.find(200001);
     large_m.erase(foo_iter);
     assert(old_size != large_m.size());
     printf("Try erasing the same values just erased\n");
@@ -131,7 +131,7 @@ int main() {
 
     // Testing clearing an empty map
     printf("----------------------------\n");
-    cs540::Map<int, int> empty_map;
+    myMap::Map<int, int> empty_map;
     // empty_map.print_skip_list();
     printf("Clearing empty Map\n");
     empty_map.clear();
@@ -142,7 +142,7 @@ int main() {
     // Testing clearing a full map
     printf("----------------------------\n");
     printf("Clearing a full map\n");
-    cs540::Map<int, int> full_map;
+    myMap::Map<int, int> full_map;
     full_map.insert(std::make_pair(1, 4));
     full_map.insert(std::make_pair(2, 5));
     full_map.insert(std::make_pair(3, 6));
@@ -157,7 +157,7 @@ int main() {
     printf("----------------------------\n");
     printf("Testing the copy constructors \n");
     printf("Testing the copying of 2 empty maps\n");
-    cs540::Map<int, int> empty_map2{empty_map};
+    myMap::Map<int, int> empty_map2{empty_map};
     assert(empty_map2.size() == 0);
     assert(empty_map.size() == 0);
     printf("PASSED\n");
@@ -165,10 +165,10 @@ int main() {
     for (int i = 0; i < 10000; i++) {
         large_m.insert(std::make_pair(i, i));
     }
-    cs540::Map<int, int> copy_large_m{large_m};
+    myMap::Map<int, int> copy_large_m{large_m};
     for (int i = 0; i < 10000; i++) {
-        cs540::Map<int, int>::Iterator large_iter = large_m.find(i);
-        cs540::Map<int, int>::Iterator c_large_iter = copy_large_m.find(i);
+        myMap::Map<int, int>::Iterator large_iter = large_m.find(i);
+        myMap::Map<int, int>::Iterator c_large_iter = copy_large_m.find(i);
         assert(large_iter->first == c_large_iter->first);
         assert(large_iter->second == c_large_iter->second);
         assert(large_m[i] == copy_large_m[i]);
@@ -210,7 +210,7 @@ int main() {
     printf("----------------------------\n");
     printf("Testing the copy assignment operator\n");
     printf("Testing the copying of 2 empty maps\n");
-    cs540::Map<int, int> copy_assignment_empty_map = empty_map;
+    myMap::Map<int, int> copy_assignment_empty_map = empty_map;
     assert(copy_assignment_empty_map.size() == 0);
     assert(empty_map.size() == 0);
     printf("PASSED\n");
@@ -223,10 +223,10 @@ int main() {
     for (int i = 0; i < 10000; i++) {
         large_m.insert(std::make_pair(i, i));
     }
-    cs540::Map<int, int> copy_assignment_large_m = large_m;
+    myMap::Map<int, int> copy_assignment_large_m = large_m;
     for (int i = 0; i < 10000; i++) {
-        cs540::Map<int, int>::Iterator large_iter = large_m.find(i);
-        cs540::Map<int, int>::Iterator c_large_iter = copy_assignment_large_m.find(i);
+        myMap::Map<int, int>::Iterator large_iter = large_m.find(i);
+        myMap::Map<int, int>::Iterator c_large_iter = copy_assignment_large_m.find(i);
         assert(large_iter->first == c_large_iter->first);
         assert(large_iter->second == c_large_iter->second);
         assert(large_m[i] == copy_assignment_large_m[i]);
@@ -271,13 +271,13 @@ int main() {
     printf("----------------------------\n");
     printf("Testing the Initializer_list\n");
     printf("Empty Initializer_list\n");
-    cs540::Map<int, int> empty_init_list{};
+    myMap::Map<int, int> empty_init_list{};
     assert(empty_init_list.size() == 0);
     printf("PASSED\n");
     printf("Testing Initializer_list with Map<int, int>: {{1, 1}, {2, 2}, {3, 3}, {4, 4}}\n");
-    cs540::Map<int, int> init_list_map {{1, 1}, {2, 2}, {3, 3}, {4, 4}};
+    myMap::Map<int, int> init_list_map {{1, 1}, {2, 2}, {3, 3}, {4, 4}};
     for (int i = 1; i < 5; i++) {
-        cs540::Map<int, int>::Iterator init_list_iter = init_list_map.find(i);
+        myMap::Map<int, int>::Iterator init_list_iter = init_list_map.find(i);
         assert(init_list_map[i] == i);
         assert(init_list_map.at(i) == i);
         assert(init_list_iter->first == i);
@@ -294,7 +294,7 @@ int main() {
     printf("PASSED\n");
     printf("Insert {-1, -1} into Initializer_list Map, but not in Real Map \n");
     init_list_map.insert(std::make_pair(-1, -1));
-    cs540::Map<int, int>::Iterator init_list_iter = init_list_map.find(-1);
+    myMap::Map<int, int>::Iterator init_list_iter = init_list_map.find(-1);
     assert(init_list_map[-1] == -1);
     assert(init_list_map.at(-1) == -1);
     assert(init_list_iter->first == -1);
@@ -306,7 +306,7 @@ int main() {
     printf("----------------------------\n");
     printf("Const Iterator for Begin(), End(), find(), and at()\n");
     printf("Inserting {{1, 1.0}, {3, 5.67}, {13, 6.9}} into the map\n");
-    const cs540::Map<int, double> int_double_map_const {{1, 1.0}, {3, 5.67}, {13, 6.9}};
+    const myMap::Map<int, double> int_double_map_const {{1, 1.0}, {3, 5.67}, {13, 6.9}};
     std::vector<int> temp_keys = {1, 3, 13};
     std::vector<double> temp_vals = {1.0, 5.67, 6.9};
     int counter = 0;
@@ -318,11 +318,11 @@ int main() {
     printf("PASSED\n");
 
     printf("Testing Find() with ConstIterator\n");
-    const cs540::Map<int, double>::ConstIterator find_const_iter = int_double_map_const.find(1);
+    const myMap::Map<int, double>::ConstIterator find_const_iter = int_double_map_const.find(1);
     std::cout << "find_const_iter (1): key: " << find_const_iter->first << " value: " << find_const_iter->second << std::endl;
-    const cs540::Map<int, double>::ConstIterator find_const_iter2 = int_double_map_const.find(3);
+    const myMap::Map<int, double>::ConstIterator find_const_iter2 = int_double_map_const.find(3);
     std::cout << "find_const_iter (3): key: " << find_const_iter2->first << " value: " << find_const_iter2->second << std::endl;
-    const cs540::Map<int, double>::ConstIterator find_const_iter3 = int_double_map_const.find(13);
+    const myMap::Map<int, double>::ConstIterator find_const_iter3 = int_double_map_const.find(13);
     std::cout << "find_const_iter (13): key: " << find_const_iter3->first << " value: " << find_const_iter3->second << std::endl;
     printf("PASSED\n");
 
@@ -345,7 +345,7 @@ int main() {
     printf("----------------------------\n");
     printf("Test Iterator Insertion\n");
     std::vector<std::pair<int, int>> int_int_map_pairs = {std::make_pair(1,2), std::make_pair(2,3), std::make_pair(4,5)};
-    cs540::Map<int, int> int_int_map;
+    myMap::Map<int, int> int_int_map;
     int_int_map.insert(int_int_map_pairs.begin(), int_int_map_pairs.end());
     printf("Inserting a vector of pair ints: {{1,2}, {2, 3}, {4, 5}}\n");
     printf("Test .at(1): %d\n", int_int_map.at(1));
@@ -357,15 +357,15 @@ int main() {
     printf("----------------------------\n");
     printf("Test the Comparision Operations For Maps\n");
     printf("Equality\n");
-    cs540::Map<int, int> int_int_map1;
-    cs540::Map<int, int> int_int_map2;
+    myMap::Map<int, int> int_int_map1;
+    myMap::Map<int, int> int_int_map2;
     printf("Comparing 2 empty maps (print out 1): %d\n", int_int_map1 == int_int_map2);
     assert(int_int_map1 == int_int_map2);
     printf("PASSED\n");
     
     printf("Inserting 100000 of the same keys and values to 2 different maps");
-    // cs540::Map<int, int> int_int_map1;
-    // cs540::Map<int, int> int_int_map2;
+    // myMap::Map<int, int> int_int_map1;
+    // myMap::Map<int, int> int_int_map2;
     for (int i = 0; i < 100000; i++) {
         int_int_map1.insert(std::make_pair(i, i));
         int_int_map2.insert(std::make_pair(i, i));
@@ -421,8 +421,8 @@ int main() {
 
     // Test Iterator Methods
     printf("----------------------------\n");
-    cs540::Map<int, int>::Iterator begin_iter_int_int_map = int_int_map.begin();
-    cs540::Map<int, int>::Iterator end_iter_int_int_map = int_int_map.end();
+    myMap::Map<int, int>::Iterator begin_iter_int_int_map = int_int_map.begin();
+    myMap::Map<int, int>::Iterator end_iter_int_int_map = int_int_map.end();
     end_iter_int_int_map--;
     printf("Test Iterator operations\n");
     printf("Inserting a of pair ints: {{1,2}, {2, 3}, {4, 5}}\n");
@@ -469,9 +469,9 @@ int main() {
 
     // Test ConstIterator Methods
     printf("----------------------------\n");
-    const cs540::Map<int, int> const_int_int{{10, 11}, {12, 14}, {41, 51}};
-    cs540::Map<int, int>::ConstIterator begin_iter_const_map = const_int_int.begin();
-    cs540::Map<int, int>::ConstIterator end_iter_const_map = const_int_int.end();
+    const myMap::Map<int, int> const_int_int{{10, 11}, {12, 14}, {41, 51}};
+    myMap::Map<int, int>::ConstIterator begin_iter_const_map = const_int_int.begin();
+    myMap::Map<int, int>::ConstIterator end_iter_const_map = const_int_int.end();
     end_iter_const_map--;
     printf("Test ConstIterator operations\n");
     printf("Inserting a of pair ints: {{10, 11}, {12, 14}, {41, 51}}\n");
@@ -496,9 +496,9 @@ int main() {
     printf("Testing the Iterator Conversion operation\n");
     printf("Inserting a of pair ints: {{1,2}}\n");
     printf("Assigning Iterator to begin(), and passing this iterator into ConstIterator\n");
-    cs540::Map<int, int> const_conversion_op_map {{1,2}};
-    const cs540::Map<int, int>::Iterator converision_iter = const_conversion_op_map.begin();
-    cs540::Map<int, int>::ConstIterator const_convert_iter(converision_iter);
+    myMap::Map<int, int> const_conversion_op_map {{1,2}};
+    const myMap::Map<int, int>::Iterator converision_iter = const_conversion_op_map.begin();
+    myMap::Map<int, int>::ConstIterator const_convert_iter(converision_iter);
     printf("Testing accessing of data: key: %d, val: %d\n", const_convert_iter->first, const_convert_iter->second);
     printf("PASSED\n");
     printf("----------------------------\n");
@@ -527,9 +527,9 @@ int main() {
 
     // Test ReverseIterator Methods
     printf("----------------------------\n");
-    cs540::Map<int, int> r_int_int_map {{1,2}, {2, 3}, {4, 5}};
-    cs540::Map<int, int>::ReverseIterator r_begin_iter_int_int_map = r_int_int_map.rbegin();
-    cs540::Map<int, int>::ReverseIterator r_end_iter_int_int_map = r_int_int_map.rend();
+    myMap::Map<int, int> r_int_int_map {{1,2}, {2, 3}, {4, 5}};
+    myMap::Map<int, int>::ReverseIterator r_begin_iter_int_int_map = r_int_int_map.rbegin();
+    myMap::Map<int, int>::ReverseIterator r_end_iter_int_int_map = r_int_int_map.rend();
     r_begin_iter_int_int_map++;
     printf("Test ReverseIterator operations: \n");
     printf("Inserting a of pair ints: {{1,2}, {2, 3}, {4, 5}}\n");
@@ -576,15 +576,15 @@ int main() {
 
     // Test Comparision Operator for Iterators
     printf("----------------------------\n");
-    cs540::Map<int, int> identical_map_1 {{1,2}, {4,1}, {241, 42}};
-    cs540::Map<int, int> identical_map_2 {{1,2}, {4,1}, {241, 42}};
+    myMap::Map<int, int> identical_map_1 {{1,2}, {4,1}, {241, 42}};
+    myMap::Map<int, int> identical_map_2 {{1,2}, {4,1}, {241, 42}};
     printf("Inserting a of pair ints: {{1,2}, {4,1}, {241, 42}} to 2 different maps\n");
-    cs540::Map<int, int>::Iterator identical_map_iter1 = identical_map_1.begin();
-    cs540::Map<int, int>::Iterator identical_map_iter2 = identical_map_2.begin();
-    cs540::Map<int, int>::ConstIterator c_identical_map_iter1 = identical_map_1.begin();
-    cs540::Map<int, int>::ConstIterator c_identical_map_iter2 = identical_map_2.begin();
-    cs540::Map<int, int>::ReverseIterator r_identical_map_iter1 = identical_map_1.rbegin();
-    cs540::Map<int, int>::ReverseIterator r_identical_map_iter2 = identical_map_2.rbegin();
+    myMap::Map<int, int>::Iterator identical_map_iter1 = identical_map_1.begin();
+    myMap::Map<int, int>::Iterator identical_map_iter2 = identical_map_2.begin();
+    myMap::Map<int, int>::ConstIterator c_identical_map_iter1 = identical_map_1.begin();
+    myMap::Map<int, int>::ConstIterator c_identical_map_iter2 = identical_map_2.begin();
+    myMap::Map<int, int>::ReverseIterator r_identical_map_iter1 = identical_map_1.rbegin();
+    myMap::Map<int, int>::ReverseIterator r_identical_map_iter2 = identical_map_2.rbegin();
     printf("Test == between different maps of the same iterator types\n");
     printf("Iterators: the same data values: should return 0: %d\n", identical_map_iter1 == identical_map_iter2);
     printf("ConstIterator: the same data values: should return 0: %d\n", c_identical_map_iter2 == c_identical_map_iter1);
@@ -621,7 +621,7 @@ int main() {
     printf("----------------------------\n");
     printf("Extra Credit Function: Testing Indexable function\n");
     printf("Inserting a of pair ints: {{1,2}, {4,1}, {241, 42}}\n");
-    cs540::Map<int, int> indexable_map_1 {{1,2}, {4,1}, {241, 42}};
+    myMap::Map<int, int> indexable_map_1 {{1,2}, {4,1}, {241, 42}};
     auto indexable_map_1_index0 = indexable_map_1.indexable(0);
     auto indexable_map_1_index1 = indexable_map_1.indexable(1);
     auto indexable_map_1_index2 = indexable_map_1.indexable(2);

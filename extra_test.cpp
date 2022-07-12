@@ -556,7 +556,7 @@ main(int argc, char *argv[]) {
     if (correct_output) {
         run_test<test_map>(iterations);
     } else {
-        run_test<cs540::Map>(iterations);
+        run_test<myMap::Map>(iterations);
     }
 }
 
